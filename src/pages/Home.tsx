@@ -1,12 +1,14 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import Layout from '../components/Layout';
-import { setUsername } from '../redux/actions';
+import { setNotFound, setUsername } from '../redux/actions';
 import Heading from '../components/Heading';
 import { Wrapper } from '../theme/components/Wrapper';
 import { theme } from '../theme';
+import { AllState } from '../redux/reducers';
+import NotFound from '../components/NotFound';
 
 interface Props {}
 
@@ -21,6 +23,9 @@ const Home = ({}: Props) => {
     });
 
     const history = useHistory();
+    const notFound = useSelector<AllState, AllState['notFound']>(
+        state => state.notFound,
+    );
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setLobbyState(prev => ({
@@ -61,6 +66,7 @@ const Home = ({}: Props) => {
                     <SubmitBtn type='submit'>Create Room</SubmitBtn>
                 </Form>
             </Wrapper>
+            {notFound ? <NotFound /> : null}
         </Layout>
     );
 };

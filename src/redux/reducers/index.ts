@@ -7,6 +7,11 @@ const initialGameData: GameData = {
     gameOn: false,
     users: [],
     deck: [],
+    settings: {
+        lives: 3,
+        jokers: false,
+        bus: true,
+    },
 };
 
 const gameData = (state: GameData = initialGameData, action: Actions) => {
@@ -27,6 +32,15 @@ const lobbyId = (state: string | null = null, action: Actions) => {
     }
 };
 
+const userId = (state: string | null = null, action: Actions) => {
+    switch (action.type) {
+        case 'SET_USERID':
+            return action.payload;
+        default:
+            return state;
+    }
+};
+
 const username = (state: string | null = null, action: Actions) => {
     switch (action.type) {
         case 'SET_USERNAME':
@@ -36,16 +50,29 @@ const username = (state: string | null = null, action: Actions) => {
     }
 };
 
+const notFound = (state: boolean = false, action: Actions) => {
+    switch (action.type) {
+        case 'SET_NOTFOUND':
+            return action.payload;
+        default:
+            return state;
+    }
+};
+
 export type AllState = {
     gameData: GameData;
     lobbyId: string | null;
+    userId: string | null;
     username: string | null;
+    notFound: boolean;
 };
 
 const appReducer = combineReducers({
     gameData,
     lobbyId,
+    userId,
     username,
+    notFound,
 });
 
 export default appReducer;

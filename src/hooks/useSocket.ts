@@ -1,4 +1,8 @@
+import { Dispatch } from 'redux';
+import { useDispatch } from 'react-redux';
+import { AnyAction } from 'redux';
 import io from 'socket.io-client';
+import { setUserId } from '../redux/actions';
 import { GameData, MessageGrp, User } from '../util/types';
 
 let socket: SocketIOClient.Socket;
@@ -8,10 +12,15 @@ type NotFoundCB = (err: boolean) => void;
 export const initiateSocket = (
     lobbyId: string,
     username: string | null,
+    dispatch: Dispatch,
     cb: NotFoundCB,
 ) => {
-    socket = io('http://localhost:5000');
+    socket = io('http://192.168.0.11:5000');
     console.log('Connecting to socket...');
+    socket.on('connect', () => {
+        console.log('userId', socket.id);
+        setUserId(socket.id, dispatch);
+    });
     if (socket && lobbyId)
         socket.emit('firstJoin', {
             lobbyId,
@@ -50,7 +59,7 @@ export const subscribeToChat = (cb: ChatCB) => {
 };
 
 export const joinLobby = (username: string) => {
-    if (socket) socket.emit('joinLobby', username);
+    if (socket) socket.emit('joinLobby', username.toLowerCase());
 };
 
 export const sendMessage = (text: string) => {
