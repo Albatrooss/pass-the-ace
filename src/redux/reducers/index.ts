@@ -50,9 +50,9 @@ const username = (state: string | null = null, action: Actions) => {
     }
 };
 
-const notFound = (state: boolean = false, action: Actions) => {
+const error = (state: string | null = null, action: Actions) => {
     switch (action.type) {
-        case 'SET_NOTFOUND':
+        case 'SET_ERROR':
             return action.payload;
         default:
             return state;
@@ -64,7 +64,7 @@ export type AllState = {
     lobbyId: string | null;
     userId: string | null;
     username: string | null;
-    notFound: boolean;
+    error: string | null;
 };
 
 const appReducer = combineReducers({
@@ -72,7 +72,7 @@ const appReducer = combineReducers({
     lobbyId,
     userId,
     username,
-    notFound,
+    error,
 });
 
 export default appReducer;

@@ -5,14 +5,14 @@ type GameDataActionType = 'SET_GAMEDATA';
 type LobbyIdActionType = 'SET_LOBBYID';
 type UserIdActionType = 'SET_USERID';
 type UsernameActionType = 'SET_USERNAME';
-type NotFoundActionType = 'SET_NOTFOUND';
+type ErrorActionType = 'SET_ERROR';
 
 export type Actions =
     | { type: GameDataActionType; payload?: GameData }
     | { type: LobbyIdActionType; payload?: string | null }
     | { type: UserIdActionType; payload?: string }
     | { type: UsernameActionType; payload?: string | null }
-    | { type: NotFoundActionType; payload?: boolean };
+    | { type: ErrorActionType; payload?: string | null };
 
 export const setGameData = (gameData: GameData, dispatch: Dispatch) => {
     dispatch({
@@ -45,9 +45,9 @@ export const setUsername = (
     });
 };
 
-export const setNotFound = (notFound: boolean, dispatch: Dispatch) => {
+export const setError = (notFound: string | null, dispatch: Dispatch) => {
     dispatch({
-        type: 'SET_NOTFOUND',
+        type: 'SET_ERROR',
         payload: notFound,
     });
 };

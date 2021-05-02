@@ -1,19 +1,21 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { setNotFound } from '../redux/actions';
+import { setError } from '../redux/actions';
 
-interface Props {}
+interface Props {
+    error: string | null;
+}
 
-const NotFound = ({}: Props) => {
+const NotFound = ({ error }: Props) => {
     const dispatch = useDispatch();
     const dismiss = () => {
-        setNotFound(false, dispatch);
+        setError(null, dispatch);
     };
     return (
-        <Wrapper>
-            <Box onClick={dismiss}>
-                <Text>Lobby Not Found</Text>
+        <Wrapper onClick={dismiss}>
+            <Box>
+                <Text>{error}</Text>
             </Box>
         </Wrapper>
     );

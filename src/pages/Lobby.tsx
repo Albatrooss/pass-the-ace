@@ -11,12 +11,7 @@ import {
     initiateSocket,
     subscribeToGame,
 } from '../hooks/useSocket';
-import {
-    setGameData,
-    setLobbyId,
-    setNotFound,
-    setUsername,
-} from '../redux/actions';
+import { setError, setGameData, setLobbyId } from '../redux/actions';
 import { AllState } from '../redux/reducers';
 
 interface Props {}
@@ -35,8 +30,8 @@ const Lobby = ({}: Props) => {
     const gameData = useSelector<AllState, AllState['gameData']>(
         state => state.gameData,
     );
-    const notFound = useSelector<AllState, AllState['notFound']>(
-        state => state.notFound,
+    const error = useSelector<AllState, AllState['error']>(
+        state => state.error,
     );
 
     const [loading, setLoading] = useState<boolean>(true);
@@ -45,15 +40,14 @@ const Lobby = ({}: Props) => {
         if (lobbyId) {
             initiateSocket(lobbyId, username, dispatch, err => {
                 console.log('errr!>?', err);
-                if (err === 'Server Error') {
+                if (err) {
+                    setError(err, dispatch);
                     history.push('/');
                     return;
                 }
-                if (err === '404') setNotFound(true, dispatch);
             });
             setLobbyId(lobbyId, dispatch);
             subscribeToGame((err, gameData) => {
-                console.log('err', err, gameData);
                 if (err) {
                     history.push('/');
                     return;
@@ -69,7 +63,9 @@ const Lobby = ({}: Props) => {
         };
     }, [lobbyId]);
 
-    if (notFound) return <Redirect to='/' />;
+    if (gameData.gameOn && !username)
+        setError('Game Started without you', dispatch);
+    if (error) return <Redirect to='/' />;
     if (loading) return <h1>Loading...</h1>;
 
     console.log('host', gameData.hostId);

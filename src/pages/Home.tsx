@@ -26,8 +26,8 @@ const Home = ({}: Props) => {
     });
 
     const history = useHistory();
-    const notFound = useSelector<AllState, AllState['notFound']>(
-        state => state.notFound,
+    const error = useSelector<AllState, AllState['error']>(
+        state => state.error,
     );
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -103,7 +103,7 @@ const Home = ({}: Props) => {
                     <SubmitBtn type='submit'>Create Room</SubmitBtn>
                 </Form>
             </Wrapper>
-            {notFound ? <NotFound /> : null}
+            {error ? <NotFound error={error} /> : null}
         </Layout>
     );
 };

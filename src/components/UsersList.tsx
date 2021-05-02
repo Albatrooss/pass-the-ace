@@ -50,8 +50,8 @@ const UsersList = ({}: Props) => {
 export default UsersList;
 
 const Box = styled.div`
-    border: 2px solid darkblue;
-    padding: 1rem;
+    border: 2px solid ${({ theme }) => theme.color.primary};
+    padding: ${({ theme }) => theme.spacing.sm};
     border-radius: ${({ theme }) => theme.borderRadius};
 `;
 

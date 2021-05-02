@@ -72,3 +72,7 @@ export const sendLeaveLobby = () => {
 export const sendMessage = (text: string) => {
     if (socket) socket.emit('chat', text);
 };
+
+export const sendStartGame = () => {
+    if (socket) socket.emit('startGame');
+};
