@@ -12,6 +12,8 @@ const initialGameData: GameData = {
         jokers: false,
         bus: true,
     },
+    order: [],
+    dealer: null,
 };
 
 const gameData = (state: GameData = initialGameData, action: Actions) => {
