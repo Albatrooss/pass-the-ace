@@ -44,7 +44,7 @@ const Chat = ({}: Props) => {
 
     console.log('username: ', username);
     return (
-        <Wrapper w='md'>
+        <Wrapper w='md' my='1rem'>
             <Box>
                 <MessageArea>
                     {messages.map((m: MessageGrp, i) => (
@@ -73,7 +73,6 @@ const Box = styled.div`
     border-radius: ${({ theme }) => theme.borderRadius};
     display: flex;
     flex-direction: column;
-    margin: 1rem auto;
 `;
 
 const MessageArea = styled.div`

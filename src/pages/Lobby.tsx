@@ -4,7 +4,7 @@ import { Redirect, useHistory, useParams } from 'react-router-dom';
 import Chat from '../components/Chat';
 import Heading from '../components/Heading';
 import Settings from '../components/Settings';
-import UsernameForm from '../components/UsernameForm';
+import UsernameForm from '../components/forms/UsernameForm';
 import UsersList from '../components/UsersList';
 import {
     disconnectSocket,

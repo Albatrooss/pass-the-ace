@@ -31,7 +31,7 @@ export const initiateSocket = (
         });
     socket.on('lobbyNotFound', () => {
         console.log('lbby not found');
-        cb('404');
+        cb('Lobby Not Found');
     });
 };
 
