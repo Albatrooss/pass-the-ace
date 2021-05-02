@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import Chat from '../components/Chat';
+import Heading from '../components/Heading';
 import Settings from '../components/Settings';
 import UsernameForm from '../components/UsernameForm';
 import UsersList from '../components/UsersList';
@@ -23,6 +24,7 @@ interface Props {}
 const Lobby = ({}: Props) => {
     const { lobbyId } = useParams<{ lobbyId: string }>();
 
+    const history = useHistory();
     const dispatch = useDispatch();
     const username = useSelector<AllState, AllState['username']>(
         state => state.username,
@@ -43,11 +45,22 @@ const Lobby = ({}: Props) => {
         if (lobbyId) {
             initiateSocket(lobbyId, username, dispatch, err => {
                 console.log('errr!>?', err);
-                if (err) setNotFound(true, dispatch);
+                if (err === 'Server Error') {
+                    history.push('/');
+                    return;
+                }
+                if (err === '404') setNotFound(true, dispatch);
             });
             setLobbyId(lobbyId, dispatch);
             subscribeToGame((err, gameData) => {
-                setGameData(gameData, dispatch);
+                console.log('err', err, gameData);
+                if (err) {
+                    history.push('/');
+                    return;
+                }
+                if (gameData) {
+                    setGameData(gameData, dispatch);
+                }
             });
             setLoading(false);
         }
@@ -63,7 +76,7 @@ const Lobby = ({}: Props) => {
     console.log('userId', userId);
     return (
         <>
-            <h1>Lobby</h1>
+            <Heading>{`Lobby ${lobbyId.toUpperCase()}`}</Heading>
             {username ? null : <UsernameForm />}
             <UsersList />
             <Chat />

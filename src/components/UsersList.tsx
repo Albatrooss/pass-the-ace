@@ -1,8 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { sendLeaveLobby } from '../hooks/useSocket';
+import { setUsername } from '../redux/actions';
 import { AllState } from '../redux/reducers';
+import { Wrapper } from '../theme/components/Wrapper';
+import X from '../theme/components/X';
+import { properNoun } from '../util/helpers';
 import { User } from '../util/types';
+import Heading from './Heading';
 
 interface Props {}
 
@@ -11,30 +17,58 @@ const UsersList = ({}: Props) => {
         state => state.gameData,
     );
 
+    const userId = useSelector<AllState, AllState['userId']>(
+        state => state.userId,
+    );
+    const dispatch = useDispatch();
+
+    const leaveLobby = () => {
+        setUsername(null, dispatch);
+        sendLeaveLobby();
+    };
+
     return (
-        <Wrapper>
-            <h2>User List</h2>
-            {users.map((u: User) => (
-                <UserWrapper>
-                    <Username>
-                        {u.username}
-                        {u.id === hostId ? '- HOST' : ''}
-                    </Username>
-                </UserWrapper>
-            ))}
+        <Wrapper w='md'>
+            <Box>
+                <Heading variant='h3'>The Players</Heading>
+                {Object.values(users).map((u: User, i) => (
+                    <UserWrapper key={i} odd={i % 2}>
+                        <Username>
+                            {properNoun(u.username)}
+                            {u.id === hostId ? ' (HOST)' : null}
+                        </Username>
+                        {u.id === userId ? (
+                            <X ml='auto' onClick={leaveLobby} />
+                        ) : null}
+                    </UserWrapper>
+                ))}
+            </Box>
         </Wrapper>
     );
 };
 
 export default UsersList;
 
-const Wrapper = styled.div`
+const Box = styled.div`
     border: 2px solid darkblue;
+    padding: 1rem;
+    border-radius: ${({ theme }) => theme.borderRadius};
 `;
-const UserWrapper = styled.div`
+
+interface UserWrapperProps {
+    odd: number;
+}
+const UserWrapper = styled.div<UserWrapperProps>`
     display: flex;
+    background-color: ${({ odd, theme }) =>
+        odd ? theme.color.lighterGrey : theme.color.white};
+    padding: ${({ theme }) => theme.spacing.sm};
 `;
 
 const Username = styled.p`
     font-weight: bold;
+`;
+
+const Host = styled.p`
+    margin-left: auto;
 `;

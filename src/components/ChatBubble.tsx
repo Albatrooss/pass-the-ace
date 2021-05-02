@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { AllState } from '../redux/reducers';
+import HR from '../theme/components/HR';
 import { MessageGrp } from '../util/types';
 
 interface Props {
@@ -23,7 +24,11 @@ const ChatBubble = ({ message }: Props) => {
                     <Title>{message.username.toUpperCase()}</Title>
                 ) : null}
                 {message.messages.map((text, i) => (
-                    <Text key={i}>{text}</Text>
+                    <>
+                        <Text key={i}>{text}</Text>
+                        {message.username === '' ? <br /> : null}
+                        {/* {message.username === '' ? <HR color='#777' /> : null} */}
+                    </>
                 ))}
             </Bubble>
         </div>
@@ -38,11 +43,11 @@ interface BubbleProps {
 }
 
 const Bubble = styled.div<BubbleProps>`
-    background-color: ${({ me, bot }) =>
-        bot ? 'none' : me ? 'lightblue' : 'lightgrey'};
+    background-color: ${({ me, bot, theme }) =>
+        bot ? 'none' : me ? theme.color.primary : 'lightgrey'};
+    color: ${({ me, theme }) => theme.color[me ? 'white' : 'black']};
     width: ${({ bot }) => (bot ? '90%' : '66%')};
-    margin-left: ${({ me, bot }) => (me || bot ? 'auto' : 0)};
-    margin-right: ${({ bot }) => (bot ? 'auto' : 0)};
+    margin-left: ${({ me, bot }) => (me ? 'auto' : 0)};
     border-radius: ${({ theme, bot }) => (bot ? theme.borderRadius : '1rem')};
     padding: 1rem 2rem;
     margin-top: 1rem;

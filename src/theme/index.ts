@@ -10,6 +10,7 @@ declare module 'styled-components' {
         };
         color: {
             primary: string;
+            primaryDark: string;
             secondary: string;
             secondaryDark: string;
             lightgreen: string;
@@ -18,7 +19,9 @@ declare module 'styled-components' {
 
             white: string;
             black: string;
-            red: string;
+            grey: string;
+            lightGrey: string;
+            lighterGrey: string;
 
             error: string;
             success: string;
@@ -46,6 +49,7 @@ export const theme: DefaultTheme = {
     },
     color: {
         primary: '#08785A',
+        primaryDark: '#085E47',
         secondary: '#375E9E',
         secondaryDark: '#2b4d83',
         lightgreen: '#428C78',
@@ -54,7 +58,9 @@ export const theme: DefaultTheme = {
 
         white: '#F1F1F1',
         black: '#333333',
-        red: '#E73838',
+        grey: '#777777',
+        lightGrey: '#AAAAAA',
+        lighterGrey: '#CCCCCC',
 
         error: '#DC3545',
         success: '#198754',

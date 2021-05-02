@@ -5,7 +5,7 @@ import { Actions } from '../actions';
 const initialGameData: GameData = {
     hostId: '',
     gameOn: false,
-    users: [],
+    users: {},
     deck: [],
     settings: {
         lives: 3,

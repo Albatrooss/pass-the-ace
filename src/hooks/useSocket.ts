@@ -4,18 +4,21 @@ import { AnyAction } from 'redux';
 import io from 'socket.io-client';
 import { setUserId } from '../redux/actions';
 import { GameData, MessageGrp, User } from '../util/types';
+import { createSemicolonClassElement } from 'typescript';
+import { KeyObject } from 'crypto';
+import { SOCKET_URL } from '../util/constants';
 
 let socket: SocketIOClient.Socket;
 
-type NotFoundCB = (err: boolean) => void;
+type InitiateCB = (err: string) => void;
 
 export const initiateSocket = (
     lobbyId: string,
     username: string | null,
     dispatch: Dispatch,
-    cb: NotFoundCB,
+    cb: InitiateCB,
 ) => {
-    socket = io('http://192.168.0.11:5000');
+    socket = io(SOCKET_URL);
     console.log('Connecting to socket...');
     socket.on('connect', () => {
         console.log('userId', socket.id);
@@ -28,7 +31,7 @@ export const initiateSocket = (
         });
     socket.on('lobbyNotFound', () => {
         console.log('lbby not found');
-        cb(true);
+        cb('404');
     });
 };
 
@@ -37,11 +40,11 @@ export const disconnectSocket = () => {
     if (socket) socket.disconnect();
 };
 
-export type GameCB = (err: string | null, gameData: GameData) => void;
+export type GameCB = (err: string | null, gameData?: GameData) => void;
 export const subscribeToGame = (cb: GameCB) => {
-    if (!socket) return true;
+    if (!socket) return cb('Server Error');
 
-    socket.on('gameUpdate', (gameData: GameData) => {
+    socket.on('game', (gameData: GameData) => {
         console.log('game update');
         return cb(null, gameData);
     });
@@ -60,6 +63,10 @@ export const subscribeToChat = (cb: ChatCB) => {
 
 export const joinLobby = (username: string) => {
     if (socket) socket.emit('joinLobby', username.toLowerCase());
+};
+
+export const sendLeaveLobby = () => {
+    if (socket) socket.emit('leaveLobby');
 };
 
 export const sendMessage = (text: string) => {
