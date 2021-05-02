@@ -44,7 +44,7 @@ interface BubbleProps {
 
 const Bubble = styled.div<BubbleProps>`
     background-color: ${({ me, bot, theme }) =>
-        bot ? 'none' : me ? theme.color.primary : 'lightgrey'};
+        bot ? 'none' : me ? theme.color.secondary : 'lightgrey'};
     color: ${({ me, theme }) => theme.color[me ? 'white' : 'black']};
     width: ${({ bot }) => (bot ? '90%' : '66%')};
     margin-left: ${({ me, bot }) => (me ? 'auto' : 0)};
