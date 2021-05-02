@@ -37,7 +37,7 @@ const Settings = ({}: Props) => {
     };
 
     return (
-        <Wrapper w='md'>
+        <Wrapper maxW='lg' my='1rem'>
             <Box>
                 <Heading variant='h3'>Settings</Heading>
                 <Form onClick={startGame}>

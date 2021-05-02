@@ -17,6 +17,7 @@ import GameView from '../components/GameView';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 import styled from 'styled-components';
 import Layout from '../components/Layout';
+import { isObjectLiteralElement } from 'typescript';
 
 interface Props {}
 
@@ -40,7 +41,7 @@ const Lobby = ({}: Props) => {
 
     const [loading, setLoading] = useState<boolean>(true);
 
-    const isMonitor = useMediaQuery('(min-width: 800px)');
+    const isMonitor = useMediaQuery('(min-width: 1000px)');
 
     useEffect(() => {
         if (lobbyId) {
@@ -77,17 +78,18 @@ const Lobby = ({}: Props) => {
     if (isMonitor)
         return (
             <Layout>
+                <Heading>{`Lobby ${lobbyId.toUpperCase()}`}</Heading>
                 <Row>
-                    <Col>
-                        <Heading>{`Lobby ${lobbyId.toUpperCase()}`}</Heading>
+                    <Col flex={3}>
                         {username ? null : <UsernameForm />}
                         {gameData.gameOn ? (
                             <GameView gameData={gameData} />
                         ) : null}
-                        <UsersList />
+                        {!gameData.gameOn ? <UsersList flex={1} /> : null}
                     </Col>
-                    <Col>
-                        <Chat />
+                    <Col flex={2}>
+                        <Chat isMonitor={isMonitor} />
+                        {gameData.gameOn ? <UsersList flex={1} /> : null}
                         {gameData.hostId === userId && !gameData.gameOn ? (
                             <Settings />
                         ) : null}
@@ -97,23 +99,40 @@ const Lobby = ({}: Props) => {
         );
 
     return (
-        <>
-            <Heading>{`Lobby ${lobbyId.toUpperCase()}`}</Heading>
-            {username ? null : <UsernameForm />}
-            {gameData.gameOn ? <GameView gameData={gameData} /> : null}
-            <UsersList />
-            <Chat />
-            {gameData.hostId === userId && !gameData.gameOn ? (
-                <Settings />
-            ) : null}
-        </>
+        // <Layout h={`${90 + 10 * Object.values(gameData.users).length}vh`}>
+        <Layout>
+            <Row>
+                <Col flex={1}>
+                    <Heading>{`Lobby ${lobbyId.toUpperCase()}`}</Heading>
+                    {username ? null : <UsernameForm />}
+                    {gameData.gameOn ? <GameView gameData={gameData} /> : null}
+                    <UsersList />
+                    <Chat isMonitor={isMonitor} />
+                    {gameData.hostId === userId && !gameData.gameOn ? (
+                        <Settings />
+                    ) : null}
+                </Col>
+            </Row>
+        </Layout>
     );
 };
 
 export default Lobby;
 
 const Row = styled.div`
+    width: 100%;
     display: flex;
     justify-content: space-between;
+    flex: 1;
 `;
-const Col = styled.div``;
+
+interface FlexProps {
+    flex: number;
+}
+const Col = styled.div<FlexProps>`
+    flex: ${({ flex }) => flex};
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+`;

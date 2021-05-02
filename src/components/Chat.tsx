@@ -11,9 +11,11 @@ import { Wrapper } from '../theme/components/Wrapper';
 import { MessageGrp } from '../util/types';
 import ChatBubble from './ChatBubble';
 
-interface Props {}
+interface Props {
+    isMonitor: boolean;
+}
 
-const Chat = ({}: Props) => {
+const Chat = ({ isMonitor }: Props) => {
     const username = useSelector<AllState, AllState['username']>(
         state => state.username,
     );
@@ -39,18 +41,18 @@ const Chat = ({}: Props) => {
             console.log('chat receieved', msgs);
             setMessages(msgs);
         });
-        return () => disconnectSocket();
-    }, [lobbyId]);
+    }, [lobbyId, isMonitor]);
 
-    console.log('username: ', username);
     return (
-        <Wrapper w='md' my='1rem'>
+        <Wrapper maxW='lg' my='1rem' flex={1}>
             <Box>
-                <MessageArea>
-                    {messages.map((m: MessageGrp, i) => (
-                        <ChatBubble key={i} message={m} />
-                    ))}
-                </MessageArea>
+                <MessageAreaWrapper>
+                    <MessageArea>
+                        {messages.map((m: MessageGrp, i) => (
+                            <ChatBubble key={i} message={m} />
+                        ))}
+                    </MessageArea>
+                </MessageAreaWrapper>
                 <Form onSubmit={sendChat}>
                     <Input
                         type='text'
@@ -68,15 +70,25 @@ const Chat = ({}: Props) => {
 export default Chat;
 
 const Box = styled.div`
-    height: 20rem;
+    height: 100%;
     border: 2px solid ${({ theme }) => theme.color.primary};
     border-radius: ${({ theme }) => theme.borderRadius};
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+`;
+
+const MessageAreaWrapper = styled.div`
+    position: relative;
+    flex: 1;
 `;
 
 const MessageArea = styled.div`
-    flex: 1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     padding: 1rem;
     overflow-y: scroll;
     display: flex;

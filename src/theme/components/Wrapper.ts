@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 
 interface WrapperProps {
+    maxW?: 'sm' | 'md' | 'lg';
     w?: 'sm' | 'md' | 'lg';
     mx?: string;
     my?: string;
@@ -8,11 +9,25 @@ interface WrapperProps {
     mb?: string;
     ml?: string;
     mr?: string;
+    flex?: number;
 }
 
 export const Wrapper = styled.div<WrapperProps>`
+    ${({ flex }) => (flex ? `flex: ${flex}` : '')};
     width: ${({ w }) => {
         switch (w) {
+            case 'sm':
+                return '20rem';
+            case 'md':
+                return '30rem';
+            case 'lg':
+                return '40rem';
+            default:
+                return '100%';
+        }
+    }};
+    max-width: ${({ maxW }) => {
+        switch (maxW) {
             case 'sm':
                 return '20rem';
             case 'md':

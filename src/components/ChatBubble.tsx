@@ -24,11 +24,11 @@ const ChatBubble = ({ message }: Props) => {
                     <Title>{message.username.toUpperCase()}</Title>
                 ) : null}
                 {message.messages.map((text, i) => (
-                    <>
-                        <Text key={i}>{text}</Text>
+                    <div key={i}>
+                        <Text>{text}</Text>
                         {message.username === '' ? <br /> : null}
                         {/* {message.username === '' ? <HR color='#777' /> : null} */}
-                    </>
+                    </div>
                 ))}
             </Bubble>
         </div>

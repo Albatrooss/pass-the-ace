@@ -32,7 +32,7 @@ const UsernameForm = ({}: Props) => {
         joinLobby(uname);
     };
     return (
-        <Wrapper w='md' my='1rem'>
+        <Wrapper maxW='lg' my='1rem'>
             <Form onSubmit={register}>
                 <Input
                     type='text'
@@ -40,6 +40,7 @@ const UsernameForm = ({}: Props) => {
                     placeholder='Username'
                     value={uname}
                     onChange={handleName}
+                    autoComplete='off'
                 />
                 <Button type='submit'>Submit</Button>
             </Form>

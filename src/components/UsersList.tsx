@@ -10,9 +10,11 @@ import { properNoun } from '../util/helpers';
 import { User } from '../util/types';
 import Heading from './Heading';
 
-interface Props {}
+interface Props {
+    flex?: number;
+}
 
-const UsersList = ({}: Props) => {
+const UsersList = ({ flex }: Props) => {
     const { users, hostId } = useSelector<AllState, AllState['gameData']>(
         state => state.gameData,
     );
@@ -28,7 +30,7 @@ const UsersList = ({}: Props) => {
     };
 
     return (
-        <Wrapper w='md'>
+        <Wrapper maxW='lg' my='1rem' flex={flex}>
             <Box>
                 <Heading variant='h3'>The Players</Heading>
                 {Object.values(users).map((u: User, i) => (
@@ -50,6 +52,7 @@ const UsersList = ({}: Props) => {
 export default UsersList;
 
 const Box = styled.div`
+    height: 100%;
     border: 2px solid ${({ theme }) => theme.color.primary};
     padding: ${({ theme }) => theme.spacing.sm};
     border-radius: ${({ theme }) => theme.borderRadius};
