@@ -1,14 +1,18 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { joinLobby } from '../../hooks/useSocket';
-import { setUsername } from '../../redux/actions';
+import { setError, setUsername } from '../../redux/actions';
+import { AllState } from '../../redux/reducers';
 import Error from '../../theme/components/Error';
 import { Wrapper } from '../../theme/components/Wrapper';
 
 interface Props {}
 
 const UsernameForm = ({}: Props) => {
+    const { users } = useSelector<AllState, AllState['gameData']>(
+        state => state.gameData,
+    );
     const dispatch = useDispatch();
     const [uname, setUname] = useState<string>('');
     const [err, setErr] = useState<string>('');
@@ -22,7 +26,9 @@ const UsernameForm = ({}: Props) => {
         e.preventDefault();
         if (uname.length < 3) return setErr('Name too short');
         if (uname.length > 10) return setErr('Name too long');
-        setUsername(uname, dispatch);
+        if (Object.values(users).find(u => u.username === uname.toLowerCase()))
+            return setErr('Username taken');
+        setUsername(uname.toLowerCase(), dispatch);
         joinLobby(uname);
     };
     return (
