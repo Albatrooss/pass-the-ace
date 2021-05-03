@@ -1,4 +1,4 @@
-import React, { ReactChildren, ReactElement } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 interface Props {

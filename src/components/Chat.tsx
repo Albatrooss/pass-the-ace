@@ -1,11 +1,7 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import {
-    disconnectSocket,
-    sendMessage,
-    subscribeToChat,
-} from '../hooks/useSocket';
+import { sendMessage, subscribeToChat } from '../hooks/useSocket';
 import { AllState } from '../redux/reducers';
 import { Wrapper } from '../theme/components/Wrapper';
 import { MessageGrp } from '../util/types';

@@ -2,14 +2,12 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { joinLobby } from '../../hooks/useSocket';
-import { setError, setUsername } from '../../redux/actions';
+import { setUsername } from '../../redux/actions';
 import { AllState } from '../../redux/reducers';
 import Error from '../../theme/components/Error';
 import { Wrapper } from '../../theme/components/Wrapper';
 
-interface Props {}
-
-const UsernameForm = ({}: Props) => {
+const UsernameForm = () => {
     const { users } = useSelector<AllState, AllState['gameData']>(
         state => state.gameData,
     );

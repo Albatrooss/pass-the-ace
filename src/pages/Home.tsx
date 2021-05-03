@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled, { css } from 'styled-components';
@@ -9,12 +9,9 @@ import { Wrapper } from '../theme/components/Wrapper';
 import { theme } from '../theme';
 import { AllState } from '../redux/reducers';
 import NotFound from '../components/NotFound';
-import { SOCKET_URL } from '../util/constants';
 import Card from '../components/Card';
 
-interface Props {}
-
-const Home = ({}: Props) => {
+const Home = () => {
     const dispatch = useDispatch();
 
     const [lobbyState, setLobbyState] = useState<{

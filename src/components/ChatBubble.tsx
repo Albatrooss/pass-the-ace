@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { AllState } from '../redux/reducers';
-import HR from '../theme/components/HR';
 import { MessageGrp } from '../util/types';
 
 interface Props {

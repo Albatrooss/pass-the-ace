@@ -1,11 +1,7 @@
 import { Dispatch } from 'redux';
-import { useDispatch } from 'react-redux';
-import { AnyAction } from 'redux';
 import io from 'socket.io-client';
 import { setUserId } from '../redux/actions';
-import { GameData, MessageGrp, User } from '../util/types';
-import { createSemicolonClassElement } from 'typescript';
-import { KeyObject } from 'crypto';
+import { GameData, MessageGrp } from '../util/types';
 import { SOCKET_URL } from '../util/constants';
 
 let socket: SocketIOClient.Socket;

@@ -71,7 +71,3 @@ const UserWrapper = styled.div<UserWrapperProps>`
 const Username = styled.p`
     font-weight: bold;
 `;
-
-const Host = styled.p`
-    margin-left: auto;
-`;

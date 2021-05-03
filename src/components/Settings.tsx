@@ -8,9 +8,7 @@ import styled, { css } from 'styled-components';
 import { sendStartGame } from '../hooks/useSocket';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
-interface Props {}
-
-const Settings = ({}: Props) => {
+const Settings = () => {
     const [expanded, setExpaned] = useState<boolean>(false);
     const [settings, setSettings] = useState<SettingsType>({
         lives: 3,

@@ -17,11 +17,8 @@ import GameView from '../components/GameView';
 import { useMediaQuery } from '../hooks/useMediaQuery';
 import styled from 'styled-components';
 import Layout from '../components/Layout';
-import { isObjectLiteralElement } from 'typescript';
 
-interface Props {}
-
-const Lobby = ({}: Props) => {
+const Lobby = () => {
     const { lobbyId } = useParams<{ lobbyId: string }>();
 
     const history = useHistory();
@@ -68,7 +65,7 @@ const Lobby = ({}: Props) => {
         return () => {
             disconnectSocket();
         };
-    }, [lobbyId]);
+    }, [lobbyId, dispatch, history, username]);
 
     if (gameData.gameOn && !username)
         setError('Game Started without you', dispatch);

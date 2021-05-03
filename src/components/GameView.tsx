@@ -4,7 +4,6 @@ import { AllState } from '../redux/reducers';
 import Error from '../theme/components/Error';
 import { GameData } from '../util/types';
 import CardEl from './Card';
-import Heading from './Heading';
 import Layout from './Layout';
 
 interface Props {
