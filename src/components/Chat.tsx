@@ -90,6 +90,7 @@ const MessageArea = styled.div`
     left: 0;
     right: 0;
     padding: 1rem;
+    padding-bottom: 0;
     overflow-y: scroll;
     display: flex;
     flex-direction: column-reverse;

@@ -10,6 +10,7 @@ import { theme } from '../theme';
 import { AllState } from '../redux/reducers';
 import NotFound from '../components/NotFound';
 import { SOCKET_URL } from '../util/constants';
+import Card from '../components/Card';
 
 interface Props {}
 
@@ -68,6 +69,7 @@ const Home = ({}: Props) => {
                     <SubmitBtn type='submit'>Create Room</SubmitBtn>
                 </Form>
             </Wrapper>
+            <Card val='sA' />
             {error ? <NotFound error={error} /> : null}
         </Layout>
     );

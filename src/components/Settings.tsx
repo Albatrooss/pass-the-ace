@@ -6,10 +6,12 @@ import CheckBox from './forms/CheckBox';
 import NumberSel from './forms/NumberSel';
 import styled, { css } from 'styled-components';
 import { sendStartGame } from '../hooks/useSocket';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 interface Props {}
 
 const Settings = ({}: Props) => {
+    const [expanded, setExpaned] = useState<boolean>(false);
     const [settings, setSettings] = useState<SettingsType>({
         lives: 3,
         jokers: false,
@@ -36,11 +38,20 @@ const Settings = ({}: Props) => {
         sendStartGame();
     };
 
+    const expandClick = () => {
+        setExpaned(prev => !prev);
+    };
+
     return (
         <Wrapper maxW='lg' my='1rem'>
-            <Box>
-                <Heading variant='h3'>Settings</Heading>
-                <Form onClick={startGame}>
+            <Box expanded={expanded}>
+                <Row cursor='pointer' onClick={expandClick}>
+                    <Heading variant='h3'>Settings</Heading>
+                    <Span>
+                        {expanded ? <FaChevronUp /> : <FaChevronDown />}
+                    </Span>
+                </Row>
+                <Form onSubmit={startGame}>
                     <Row>
                         <Label>Lives</Label>
                         <ChoiceWrapper>
@@ -80,7 +91,12 @@ const Settings = ({}: Props) => {
 
 export default Settings;
 
-const Box = styled.div`
+interface BoxProps {
+    expanded?: boolean;
+}
+const Box = styled.div<BoxProps>`
+    ${({ expanded }) => (expanded ? '' : 'max-height: 3rem;')}
+    overflow: hidden;
     border: 2px solid ${({ theme }) => theme.color.primary};
     padding: ${({ theme }) => theme.spacing.sm};
     border-radius: ${({ theme }) => theme.borderRadius};
@@ -88,10 +104,14 @@ const Box = styled.div`
 
 const Form = styled.form``;
 
-const Row = styled.div`
+interface CursorProps {
+    cursor?: string;
+}
+const Row = styled.div<CursorProps>`
     display: flex;
     align-items: center;
     padding: ${({ theme }) => theme.spacing.sm} 0;
+    cursor: ${({ cursor }) => (cursor ? cursor : 'default')};
 `;
 
 const Label = styled.p`
@@ -125,4 +145,8 @@ const Button = styled.button`
             color: ${theme.color.primary};
         `}
     }
+`;
+
+const Span = styled.div`
+    margin-left: auto;
 `;
