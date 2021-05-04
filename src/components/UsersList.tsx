@@ -9,6 +9,7 @@ import X from '../theme/components/X';
 import { properNoun } from '../util/helpers';
 import { User } from '../util/types';
 import Heading from './Heading';
+import UserListLine from './UserListLine';
 
 interface Props {
     flex?: number;
@@ -18,10 +19,10 @@ const UsersList = ({ flex }: Props) => {
     const { users, hostId } = useSelector<AllState, AllState['gameData']>(
         state => state.gameData,
     );
-
     const userId = useSelector<AllState, AllState['userId']>(
         state => state.userId,
     );
+
     const dispatch = useDispatch();
 
     const leaveLobby = () => {
@@ -35,15 +36,14 @@ const UsersList = ({ flex }: Props) => {
             <Box>
                 <Heading variant='h3'>The Players</Heading>
                 {Object.values(users).map((u: User, i) => (
-                    <UserWrapper key={i} odd={i % 2}>
-                        <Username>
-                            {properNoun(u.username)}
-                            {u.id === hostId ? ' (HOST)' : null}
-                        </Username>
-                        {u.id === userId ? (
-                            <X ml='auto' onClick={leaveLobby} />
-                        ) : null}
-                    </UserWrapper>
+                    <UserListLine
+                        key={i}
+                        user={u}
+                        odd={i % 2}
+                        me={u.id === userId}
+                        host={hostId === u.id}
+                        leaveLobby={leaveLobby}
+                    />
                 ))}
             </Box>
         </Wrapper>
@@ -57,18 +57,4 @@ const Box = styled.div`
     border: 2px solid ${({ theme }) => theme.color.primary};
     padding: ${({ theme }) => theme.spacing.sm};
     border-radius: ${({ theme }) => theme.borderRadius};
-`;
-
-interface UserWrapperProps {
-    odd: number;
-}
-const UserWrapper = styled.div<UserWrapperProps>`
-    display: flex;
-    background-color: ${({ odd, theme }) =>
-        odd ? theme.color.lighterGrey : theme.color.white};
-    padding: ${({ theme }) => theme.spacing.sm};
-`;
-
-const Username = styled.p`
-    font-weight: bold;
 `;

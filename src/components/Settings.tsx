@@ -60,7 +60,7 @@ const Settings = () => {
                             />
                         </ChoiceWrapper>
                     </Row>
-                    <Row>
+                    {/* <Row>
                         <Label>Jokers</Label>
                         <ChoiceWrapper>
                             <CheckBox
@@ -69,7 +69,7 @@ const Settings = () => {
                                 onClick={handleCheck}
                             />
                         </ChoiceWrapper>
-                    </Row>
+                    </Row> */}
                     <Row>
                         <Label>Bus</Label>
                         <ChoiceWrapper>
