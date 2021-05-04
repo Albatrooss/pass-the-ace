@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Heading from './components/Heading';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Lobby from './pages/Lobby';
+import { setUsername } from './redux/actions';
 import { SOCKET_URL } from './util/constants';
 
 function App() {
     const [waitingForHeroku, setWaitingForHeroku] = useState<boolean>(true);
     const [retries, setRetries] = useState<number>(20);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const pingServer = async () => {
@@ -31,6 +34,11 @@ function App() {
         };
         pingServer();
     }, [retries]);
+
+    useEffect(() => {
+        let uname = localStorage.getItem('username');
+        if (uname) setUsername(uname, dispatch);
+    }, []);
 
     if (waitingForHeroku)
         return (

@@ -88,10 +88,12 @@ export interface GameData {
     deck: Card[];
     settings: SettingsType;
     order: string[];
-    dealer: string | null;
+    turn: number;
 }
 
 export interface JoinData {
     lobbyId: string;
     username: string;
 }
+
+export type Decision = 'KEEP' | 'PASS' | 'CUT' | null;

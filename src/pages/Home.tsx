@@ -39,13 +39,14 @@ const Home = () => {
         const { lobbyName, username } = lobbyState;
         let uname = username.toLowerCase();
         setUsername(uname, dispatch);
+        localStorage.setItem('username', uname);
         history.push(`/${lobbyName}`);
     };
 
     return (
         <Layout>
             <Heading color={theme.color.secondaryDark}>Pass The Ace</Heading>
-            <Wrapper w='lg' mx='auto'>
+            <Wrapper w='lg' mx='auto' my='1rem'>
                 <Form onSubmit={handleSubmit}>
                     <Input
                         type='text'
@@ -66,7 +67,7 @@ const Home = () => {
                     <SubmitBtn type='submit'>Create Room</SubmitBtn>
                 </Form>
             </Wrapper>
-            <Card val='sA' />
+            <Card val='sA' size='xlarge' />
             {error ? <NotFound error={error} /> : null}
         </Layout>
     );

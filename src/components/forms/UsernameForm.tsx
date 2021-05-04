@@ -27,6 +27,7 @@ const UsernameForm = () => {
         if (Object.values(users).find(u => u.username === uname.toLowerCase()))
             return setErr('Username taken');
         setUsername(uname.toLowerCase(), dispatch);
+        localStorage.setItem('username', uname);
         joinLobby(uname);
     };
     return (

@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import io from 'socket.io-client';
 import { setUserId } from '../redux/actions';
-import { GameData, MessageGrp } from '../util/types';
+import { Decision, GameData, MessageGrp } from '../util/types';
 import { SOCKET_URL } from '../util/constants';
 
 let socket: SocketIOClient.Socket;
@@ -17,7 +17,6 @@ export const initiateSocket = (
     socket = io(SOCKET_URL);
     console.log('Connecting to socket...');
     socket.on('connect', () => {
-        console.log('userId', socket.id);
         setUserId(socket.id, dispatch);
     });
     if (socket && lobbyId)
@@ -71,4 +70,12 @@ export const sendMessage = (text: string) => {
 
 export const sendStartGame = () => {
     if (socket) socket.emit('startGame');
+};
+
+export const sendDecision = (d: Decision) => {
+    if (socket && d) socket.emit(d);
+};
+
+export const sendDeal = () => {
+    if (socket) socket.emit('deal');
 };

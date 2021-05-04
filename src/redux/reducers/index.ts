@@ -13,7 +13,7 @@ const initialGameData: GameData = {
         bus: true,
     },
     order: [],
-    dealer: null,
+    turn: 0,
 };
 
 const gameData = (state: GameData = initialGameData, action: Actions) => {

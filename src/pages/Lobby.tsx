@@ -103,8 +103,8 @@ const Lobby = () => {
                     <Heading>{`Lobby ${lobbyId.toUpperCase()}`}</Heading>
                     {username ? null : <UsernameForm />}
                     {gameData.gameOn ? <GameView gameData={gameData} /> : null}
-                    <UsersList />
                     <Chat isMonitor={isMonitor} />
+                    <UsersList />
                     {gameData.hostId === userId && !gameData.gameOn ? (
                         <Settings />
                     ) : null}

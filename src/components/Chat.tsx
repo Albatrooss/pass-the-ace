@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components';
 import { sendMessage, subscribeToChat } from '../hooks/useSocket';
 import { AllState } from '../redux/reducers';
 import { Wrapper } from '../theme/components/Wrapper';
+import { orderUserIds } from '../util/helpers';
 import { MessageGrp } from '../util/types';
 import ChatBubble from './ChatBubble';
 
@@ -67,6 +68,7 @@ export default Chat;
 
 const Box = styled.div`
     height: 100%;
+    min-height: 15rem;
     border: 2px solid ${({ theme }) => theme.color.primary};
     border-radius: ${({ theme }) => theme.borderRadius};
     display: flex;

@@ -3,11 +3,14 @@ import styled from 'styled-components';
 import { Card } from '../util/types';
 
 interface Props {
-    val: Card;
+    val: Card | 'back';
+    size?: 'small' | 'large' | 'xlarge';
 }
 
-const CardEl = ({ val }: Props) => {
-    return <Front className={`card shadow no-border xlarge ${val}`} />;
+const CardEl = ({ val, size }: Props) => {
+    return (
+        <Front className={`card shadow no-border ${size ? size : ''} ${val}`} />
+    );
 };
 
 export default CardEl;

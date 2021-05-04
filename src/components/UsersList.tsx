@@ -26,6 +26,7 @@ const UsersList = ({ flex }: Props) => {
 
     const leaveLobby = () => {
         setUsername(null, dispatch);
+        localStorage.removeItem('username');
         sendLeaveLobby();
     };
 
