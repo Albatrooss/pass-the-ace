@@ -38,7 +38,7 @@ function App() {
     useEffect(() => {
         let uname = localStorage.getItem('username');
         if (uname) setUsername(uname, dispatch);
-    }, []);
+    }, [dispatch]);
 
     if (waitingForHeroku)
         return (
