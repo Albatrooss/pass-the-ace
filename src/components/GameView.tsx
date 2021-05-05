@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { scryRenderedDOMComponentsWithClass } from 'react-dom/test-utils';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { sendDeal, sendDecision } from '../hooks/useSocket';
@@ -10,7 +9,6 @@ import { isKing, properNoun, splitUsers } from '../util/helpers';
 import { Card, Decision, GameData } from '../util/types';
 import CardEl from './Card';
 import Heading from './Heading';
-import Layout from './Layout';
 
 interface Props {
     gameData: GameData;

@@ -5,8 +5,6 @@ import { sendLeaveLobby } from '../hooks/useSocket';
 import { setUsername } from '../redux/actions';
 import { AllState } from '../redux/reducers';
 import { Wrapper } from '../theme/components/Wrapper';
-import X from '../theme/components/X';
-import { properNoun } from '../util/helpers';
 import { User } from '../util/types';
 import Heading from './Heading';
 import UserListLine from './UserListLine';
