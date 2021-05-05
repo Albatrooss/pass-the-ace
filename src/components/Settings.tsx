@@ -33,7 +33,7 @@ const Settings = () => {
 
     const startGame = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        sendStartGame();
+        sendStartGame(settings);
     };
 
     const expandClick = () => {

@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import io from 'socket.io-client';
 import { setUserId } from '../redux/actions';
-import { Decision, GameData, MessageGrp } from '../util/types';
+import { Decision, GameData, MessageGrp, SettingsType } from '../util/types';
 import { SOCKET_URL } from '../util/constants';
 
 let socket: SocketIOClient.Socket;
@@ -68,8 +68,8 @@ export const sendMessage = (text: string) => {
     if (socket) socket.emit('chat', text);
 };
 
-export const sendStartGame = () => {
-    if (socket) socket.emit('startGame');
+export const sendStartGame = (settings: SettingsType) => {
+    if (socket) socket.emit('startGame', settings);
 };
 
 export const sendDecision = (d: Decision) => {
